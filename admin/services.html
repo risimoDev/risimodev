@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Services - Admin Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <!-- Navigation -->
+    <nav class="bg-gray-800 text-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-6">
+                    <h1 class="text-xl font-bold">Admin Panel</h1>
+                    <a href="/admin-XYZ123/dashboard" class="hover:text-gray-300">Dashboard</a>
+                    <a href="/admin-XYZ123/projects" class="hover:text-gray-300">Projects</a>
+                    <a href="/admin-XYZ123/services" class="hover:text-gray-300 border-b-2 border-white">Services</a>
+                    <a href="/admin-XYZ123/messages" class="hover:text-gray-300">Messages</a>
+                    <a href="/admin-XYZ123/site-texts" class="hover:text-gray-300">Site Texts</a>
+                </div>
+                <div>
+                    <a href="/admin-XYZ123/logout" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition duration-300">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Services Content -->
+    <div class="max-w-6xl mx-auto px-4 py-8">
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold">Manage Services</h1>
+            <button onclick="openCreateModal()" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-300">Add New Service</button>
+        </div>
+        
+        <!-- Services Table -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    <% if (services && services.length > 0) { %>
+                        <% services.forEach(service => { %>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm font-medium text-gray-900"><%= service.title %></div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="text-sm text-gray-500"><%= service.description %></div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <%= service.price || 'N/A' %>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <a href="/admin-XYZ123/services/edit/<%= service.id %>" class="text-blue-500 hover:text-blue-700 mr-3">Edit</a>
+                                    <a href="/admin-XYZ123/services/delete/<%= service.id %>" class="text-red-500 hover:text-red-700" onclick="return confirm('Are you sure you want to delete this service?')">Delete</a>
+                                </td>
+                            </tr>
+                        <% }); %>
+                    <% } else { %>
+                        <tr>
+                            <td colspan="4" class="px-6 py-4 text-center text-sm text-gray-500">
+                                No services found. Add your first service!
+                            </td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- Create Service Modal -->
+    <div id="createModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-md">
+            <div class="p-6">
+                <h2 class="text-xl font-bold mb-4">Add New Service</h2>
+                <form action="/admin-XYZ123/services/create" method="POST">
+                    <div class="mb-4">
+                        <label for="createTitle" class="block text-gray-700 font-medium mb-2">Title</label>
+                        <input type="text" id="createTitle" name="title" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                    </div>
+                    <div class="mb-4">
+                        <label for="createDescription" class="block text-gray-700 font-medium mb-2">Description</label>
+                        <textarea id="createDescription" name="description" rows="3" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"></textarea>
+                    </div>
+                    <div class="mb-4">
+                        <label for="createPrice" class="block text-gray-700 font-medium mb-2">Price (optional)</label>
+                        <input type="text" id="createPrice" name="price" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                    </div>
+                    <div class="flex justify-end space-x-3">
+                        <button type="button" onclick="closeCreateModal()" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition duration-300">Cancel</button>
+                        <button type="submit" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-300">Create</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Create Modal Functions
+        function openCreateModal() {
+            document.getElementById('createModal').classList.remove('hidden');
+            document.getElementById('createModal').classList.add('flex');
+        }
+        
+        function closeCreateModal() {
+            document.getElementById('createModal').classList.add('hidden');
+            document.getElementById('createModal').classList.remove('flex');
+        }
+    </script>
+</body>
+</html>

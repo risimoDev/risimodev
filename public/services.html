@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= servicesTitle || 'Our Services' %> - App & Website Marketplace</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between">
+                <div class="flex space-x-7">
+                    <div>
+                        <a href="/" class="flex items-center py-4 px-2">
+                            <span class="font-semibold text-gray-500 text-lg">App & Website Marketplace</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center space-x-1">
+                    <a href="/" class="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300">Home</a>
+                    <a href="/portfolio" class="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300">Portfolio</a>
+                    <a href="/services" class="py-4 px-2 text-green-500 border-b-2 border-green-500 font-semibold">Services</a>
+                    <a href="/contact" class="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Services Section -->
+    <div class="max-w-6xl mx-auto px-4 py-16">
+        <h1 class="text-3xl font-bold mb-8 text-center"><%= servicesTitle || 'Our Services' %></h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <% if (services && services.length > 0) { %>
+                <% services.forEach(service => { %>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-semibold mb-2"><%= service.title %></h3>
+                        <p class="text-gray-600 mb-4"><%= service.description %></p>
+                        <% if (service.price) { %>
+                            <p class="text-green-500 font-bold text-lg"><%= service.price %></p>
+                        <% } %>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                <div class="col-span-2 text-center py-12">
+                    <p class="text-gray-500 text-lg">No services available yet.</p>
+                </div>
+            <% } %>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="bg-green-500 text-white py-16">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-4">Interested in our services?</h2>
+            <p class="text-xl mb-8">Let's discuss how we can help bring your ideas to life.</p>
+            <a href="/contact" class="bg-white text-green-500 hover:bg-gray-100 font-bold py-3 px-6 rounded inline-block transition duration-300">Contact Us</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <p>&copy; 2023 App & Website Marketplace. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

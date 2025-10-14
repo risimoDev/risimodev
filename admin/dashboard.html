@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - App Marketplace</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <!-- Navigation -->
+    <nav class="bg-gray-800 text-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <h1 class="text-xl font-bold">Admin Dashboard</h1>
+                </div>
+                <div>
+                    <a href="/admin-XYZ123/logout" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition duration-300">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Content -->
+    <div class="max-w-6xl mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-8">Dashboard</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h3 class="text-lg font-semibold mb-2">Projects</h3>
+                <p class="text-3xl font-bold text-green-500"><%= projectCount || 0 %></p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h3 class="text-lg font-semibold mb-2">Services</h3>
+                <p class="text-3xl font-bold text-blue-500"><%= serviceCount || 0 %></p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h3 class="text-lg font-semibold mb-2">Messages</h3>
+                <p class="text-3xl font-bold text-purple-500"><%= messageCount || 0 %></p>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-xl font-semibold mb-4">Quick Actions</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <a href="/admin-XYZ123/projects" class="bg-green-500 hover:bg-green-600 text-white text-center py-3 px-4 rounded transition duration-300">Manage Projects</a>
+                <a href="/admin-XYZ123/services" class="bg-blue-500 hover:bg-blue-600 text-white text-center py-3 px-4 rounded transition duration-300">Manage Services</a>
+                <a href="/admin-XYZ123/messages" class="bg-purple-500 hover:bg-purple-600 text-white text-center py-3 px-4 rounded transition duration-300">View Messages</a>
+                <a href="/admin-XYZ123/site-texts" class="bg-yellow-500 hover:bg-yellow-600 text-white text-center py-3 px-4 rounded transition duration-300">Edit Site Texts</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
